@@ -1,4 +1,4 @@
-import { drawKmeans } from "./drawKmeans";
+import { drawKmeans, charts, setCharts, getCharts } from "./drawKmeans";
 
 export const sketch = (s) => {
   let menu = [];
@@ -12,16 +12,26 @@ export const sketch = (s) => {
   const visuals = ["K-Means Clustering", "Simple Linear Regression", "Test"];
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
-    s.background(244, 248, 252);
   };
-
+  const colors = [
+    s.color("#488f31"),
+    s.color("#ff7c43"),
+    s.color("#d45087"),
+    s.color("ffa600"),
+  ];
+  colors[-1] = s.color(0, 0, 0);
   s.draw = () => {
-    // s.circle(s.mouseX, s.mouseY, 100);
+    const currentChart = charts[charts.length - 1];
+    if (charts.length) {
+      currentChart.forEach((point) => {
+        s.fill(s.color(colors[point["centroid"]]));
+        s.circle(point[0], point[1], 8);
+      });
+    }
   };
 
   s.doubleClicked = (event) => {
     visuals.forEach((v) => {
-      //   console.log(menu);
       let btn = s.createButton(v);
 
       btn.addClass(
@@ -37,6 +47,7 @@ export const sketch = (s) => {
 
         // @TODO switch between visuals arr
         item.mousePressed(() => {
+          s.translate(0, -300);
           renderKmeans();
           clearMenu();
         });
