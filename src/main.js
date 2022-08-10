@@ -9,5 +9,6 @@ const app = new App({
   target: document.getElementById("app"),
 });
 
+// @ts-ignore
 let instance = new p5(sketch, "whiteboard");
 export default app;

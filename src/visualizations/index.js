@@ -1,6 +1,7 @@
-import { drawKmeans, charts, setCharts, getCharts } from "./drawKmeans";
-
-export const sketch = (s) => {
+import { DrawClusters } from "./drawKmeans";
+import { charts, size } from "../store/charts";
+import { get } from "svelte/store";
+const sketch = (s) => {
   let menu = [];
   function clearMenu() {
     menu.forEach((item) => {
@@ -8,21 +9,28 @@ export const sketch = (s) => {
     });
     menu = [];
   }
-  const renderKmeans = drawKmeans(s);
-  const visuals = ["K-Means Clustering", "Simple Linear Regression", "Test"];
+  const renderKmeans = DrawClusters(s);
+  const visuals = ["K-Means Clustering", "DBSCAN", "Simple Linear Regression"];
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
   };
+
+  //possible cluster colors
   const colors = [
     s.color("#488f31"),
     s.color("#ff7c43"),
     s.color("#d45087"),
-    s.color("ffa600"),
+    s.color("#ffa600"),
+    s.color(111, 1111, 111),
   ];
+
+  // setting black to -1 for clicking a data point
   colors[-1] = s.color(0, 0, 0);
   s.draw = () => {
-    const currentChart = charts[charts.length - 1];
-    if (charts.length) {
+    // ?: this flow works for adding new kmeans charts after another
+    // HOWEVER, I want to be able to select the chart by clicking on the area it overs, any ideas?
+    const currentChart = get(charts)[get(charts).length - 1];
+    if (get(charts).length) {
       currentChart.forEach((point) => {
         s.fill(s.color(colors[point["centroid"]]));
         s.circle(point[0], point[1], 8);
@@ -45,13 +53,18 @@ export const sketch = (s) => {
       menu.forEach((item, i) => {
         item.position(s.mouseX, s.mouseY + item.size().height * 1.2 * i);
 
-        // @TODO switch between visuals arr
         item.mousePressed(() => {
-          s.translate(0, -300);
-          renderKmeans();
+          // ?: i feel like tthis is bad way to do this, should I set the function when defining the visualizatons iterable like:
+          // [{model:'K-Means Clustering',onMousePressed:someFunction}]
+          if (item.elt.innerText === "K-Means Clustering") {
+            s.translate(0, -get(size));
+            renderKmeans();
+          }
           clearMenu();
+          console.log(item);
         });
       });
     });
   };
 };
+export { sketch };
