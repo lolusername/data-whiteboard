@@ -1,48 +1,50 @@
-# Svelte + Vite
+# DS-Board
 
-This template should help get you started developing with Svelte in Vite.
+DS-Board is a whiteboard app designed to help educators teach data science and machine learning concepts in an interactive and visual way. With DS-Board, educators can easily create visuals to explain algorithms and techniques, using community and social justice-based data or their own data.
 
-## Recommended IDE Setup
+## Installation
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+To get started with DS-Board, you'll need to have [Node.js](https://nodejs.org/) installed on your machine. Once you have Node.js installed, run the following commands:
 
-## Need an official Svelte framework?
+### Clone the repository
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+git clone <https://github.com/yourusername/ds-board.git>
 
-## Technical considerations
+### Navigate to the project directory
 
-**Why use this over SvelteKit?**
+cd ds-board
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+### Install dependencies
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+npm install
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+## Usage
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+Once you have installed the dependencies, you can run the following commands to start DS-Board:
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+### Start the development server
 
-**Why include `.vscode/extensions.json`?**
+npm run dev
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+### Build the app for production
 
-**Why enable `checkJs` in the JS template?**
+npm run build
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+### Preview the production build
 
-**Why is HMR not preserving my local component state?**
+npm run preview
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
+## Dependencies
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+DS-Board has the following dependencies:
 
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+- [ml5](https://github.com/ml5js/ml5-library) - A machine learning library for JavaScript
+- [p5](https://p5js.org/) - A JavaScript library for creating visual and interactive experiences
+
+## Contributing
+
+If you would like to contribute to DS-Board, please fork the repository and submit a pull request. We welcome contributions of all kinds, from bug fixes to new features.
+
+## License
+
+DS-Board is released under the [MIT License](https://opensource.org/licenses/MIT).
