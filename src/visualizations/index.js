@@ -1,4 +1,4 @@
-import { DrawClusters } from "./drawKmeans";
+import { DrawClusters, handleFileUpload } from "./drawKmeans";
 import { charts, size } from "../store/charts";
 import { get } from "svelte/store";
 const sketch = (s) => {
@@ -10,7 +10,11 @@ const sketch = (s) => {
     menu = [];
   }
   const renderKmeans = DrawClusters(s);
-  const visuals = ["K-Means Clustering", "DBSCAN", "Simple Linear Regression"];
+  const visuals = [
+    "K-Means Clustering (random)",
+    "K-Means Clustering (CSV)",
+    "Simple Linear Regression",
+  ];
   s.setup = () => {
     s.createCanvas(s.windowWidth, s.windowHeight);
   };
@@ -56,10 +60,31 @@ const sketch = (s) => {
         item.mousePressed(() => {
           // ?: i feel like tthis is bad way to do this, should I set the function when defining the visualizatons iterable like:
           // [{model:'K-Means Clustering',onMousePressed:someFunction}]
-          if (item.elt.innerText === "K-Means Clustering") {
+          if (item.elt.innerText === "K-Means Clustering (random)") {
             s.translate(0, -get(size));
             renderKmeans();
           }
+          if (item.elt.innerText === "K-Means Clustering (CSV)") {
+            s.translate(0, -get(size));
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.style.display = "none";
+
+            // Add an event listener to handle the selected file
+            fileInput.addEventListener("change", (event) => {
+              const file = event.target.files[0];
+              console.log("Selected file:", file);
+              s.translate(0, -get(size));
+              renderKmeans();
+            });
+
+            // Add the hidden file input element to the DOM
+            document.body.appendChild(fileInput);
+
+            // Open the file selector by simulating a click on the hidden input element
+            fileInput.click();
+          }
+
           clearMenu();
           console.log(item);
         });

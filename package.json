@@ -2,6 +2,7 @@
   "name": "ds-board",
   "private": true,
   "version": "0.0.0",
+  "description": "A Svelte project with Tailwind CSS that is an open-source whiteboard for teaching data science by enabling easily visualizing data techniques and algorithms.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -18,6 +19,7 @@
   },
   "dependencies": {
     "ml5": "^0.12.2",
-    "p5": "^1.4.2"
+    "p5": "^1.4.2",
+    "papaparse": "^5.4.1"
   }
 }
