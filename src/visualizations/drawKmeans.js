@@ -1,8 +1,8 @@
 import ml5 from "ml5";
 import { get } from "svelte/store";
 import { charts, size } from "../store/charts.js";
-import { drawTickAxes } from "./utils.js";
-import Papa from "papaparse";
+import { drawTickAxes, processCSVFile } from "./utils.js";
+
 
 const handleFileUpload = async (event) => {
   const file = event.target.files[0];
@@ -49,20 +49,6 @@ const DrawClusters = (sketch, data = null) => {
   };
 };
 
-const processCSVFile = (file) => {
-  return new Promise((resolve, reject) => {
-    Papa.parse(file, {
-      header: true,
-      dynamicTyping: true,
-      complete: (results) => {
-        resolve(results.data);
-      },
-      error: (error) => {
-        reject(error);
-      },
-    });
-  });
-};
 
 const onCluster = (clustering) => {
   clustering.dataset.forEach((point) => {

@@ -1,5 +1,6 @@
 import { size } from "../store/charts.js";
 import { get } from "svelte/store";
+import Papa from "papaparse";
 
 // chart ticks and axes, reusable
 function drawTickAxes(s) {
@@ -28,4 +29,19 @@ function drawTickAxes(s) {
     //end tickmarks
   }
 }
-export { drawTickAxes };
+
+const processCSVFile = (file) => {
+  return new Promise((resolve, reject) => {
+    Papa.parse(file, {
+      header: true,
+      dynamicTyping: true,
+      complete: (results) => {
+        resolve(results.data);
+      },
+      error: (error) => {
+        reject(error);
+      },
+    });
+  });
+};
+export { drawTickAxes, processCSVFile };
